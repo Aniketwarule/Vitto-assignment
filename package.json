@@ -1,0 +1,13 @@
+{
+  "name": "vitto-lending-system",
+  "version": "1.0.0",
+  "description": "MSME Lending Decision System — Full Stack Application",
+  "private": true,
+  "scripts": {
+    "install:all": "cd server && npm install && cd ../client && npm install",
+    "dev:server": "cd server && npm run dev",
+    "dev:client": "cd client && npm run dev",
+    "start:server": "cd server && npm start",
+    "start:client": "cd client && npm run dev"
+  }
+}
