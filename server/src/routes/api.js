@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-
 const { submitApplication, getApplication, listApplications } = require('../controllers/applicationController');
 const { validateApplication } = require('../middleware/validator');
 const { decisionRateLimiter } = require('../middleware/rateLimiter');

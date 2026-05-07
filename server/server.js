@@ -12,7 +12,18 @@ const app = express();
 
 // ─── Security & Parsing ──────────────────────────────────────────
 app.use(helmet());
-app.use(cors({ origin: config.corsOrigin, credentials: true }));
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || config.corsOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      return callback(new Error('Not allowed by CORS'));
+    },
+    credentials: true,
+  })
+);
 app.use(express.json({ limit: '1mb' }));
 
 // ─── Logging ─────────────────────────────────────────────────────
@@ -31,7 +42,7 @@ app.use(errorHandler);
 app.listen(config.port, () => {
   console.log(`\n🏦 Vitto Lending API running on http://localhost:${config.port}`);
   console.log(`   Environment: ${config.nodeEnv}`);
-  console.log(`   CORS origin: ${config.corsOrigin}\n`);
+  console.log(`   CORS origins: ${config.corsOrigins.join(', ')}\n`);
 });
 
 module.exports = app;
