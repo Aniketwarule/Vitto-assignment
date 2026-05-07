@@ -15,7 +15,9 @@ app.use(helmet());
 app.use(
   cors({
     origin: (origin, callback) => {
-      if (!origin || config.corsOrigins.includes(origin)) {
+      const normalizedOrigin = origin ? config.normalizeOrigin(origin) : '';
+
+      if (!origin || config.corsOrigins.includes('*') || config.corsOrigins.includes(normalizedOrigin)) {
         return callback(null, true);
       }
 
