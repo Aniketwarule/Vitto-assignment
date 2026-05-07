@@ -11,21 +11,7 @@ const { errorHandler, notFoundHandler } = require('./src/middleware/errorHandler
 const app = express();
 
 // ─── Security & Parsing ──────────────────────────────────────────
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      // Allow requests with no origin (mobile apps, curl, etc.)
-      if (!origin || config.corsOrigins.includes(origin)) {
-        return callback(null, true);
-      }
-
-      return callback(new Error('Not allowed by CORS'));
-    },
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-  })
-);
+app.use(cors({ origin: '*' }));
 app.use(
   helmet({
     crossOriginResourcePolicy: { policy: 'cross-origin' },
